@@ -1,0 +1,93 @@
+<div class="container-fluid p-0">
+  <div class="row m-0">
+    <!-- Navbar -->
+    <div class="col-12 px-0" class="borde-ancho">
+      <app-navbarv></app-navbarv>
+    </div>
+  </div>
+  <div class="row m-0">
+    <!-- Sidebar -->
+    <div class="col-2 p-0 d-flex flex-column vh-100">
+      <app-sidebarv class="flex-grow-1"></app-sidebarv>
+    </div>
+    <!-- Main Content -->
+
+    <div class="col-10 p-0 d-flex">
+      <!-- Aquí puedes colocar el contenido principal -->
+      <div class="p-4 flex-grow-1" style="background-color: #dbd8d8">
+        <div class="container">
+          <div class="container-fluid">
+            <div class="container-fluid">
+              <div class="row title mt-5"></div>
+              <div class="row contenido my-3 p-5 rounded-4">
+                <h4>Confirmación del Retiro</h4>
+
+                <form action="">
+                  <div
+                    class="col-12 my-3 p-4 rounded-3"
+                    style="background-color: #fdfdfd"
+                  >
+                    <p style="color: #3d84a7; line-height: 0.8em">
+                      <b>EDISON JAVIER TOAPANTA PICHUCHO</b>
+                    </p>
+                    <p style="font-size: 14px; line-height: 0.5em">
+                      No. 2256987413
+                    </p>
+                    <p style="font-size: 14px; line-height: 0.5em">Ahorros</p>
+                  </div>
+                  <div
+                    class="p-4 flex-grow-1 rounded-3"
+                    style="background-color: #fdfdfd"
+                  >
+                    <div class="row">
+                      <div class="col-3">
+                        <h5>Retiro</h5>
+                      </div>
+                    </div>
+
+                    <div
+                      class="col-12 my-3 p-4 rounded-3 border"
+                      style="background-color: #fdfdfd"
+                    >
+                      <p style="color: #159768; line-height: 0.8em">
+                        <b>Cuenta Tradicional</b>
+                      </p>
+                      <div class="row">
+                        <p
+                          class="col-10"
+                          style="font-size: 14px; line-height: 0.5em"
+                        >
+                          2256987413
+                        </p>
+                        <p
+                          class="col-1"
+                          style="color: #159768; line-height: 0.8em"
+                        >
+                          $200.50
+                        </p>
+                      </div>
+                    </div>
+                    <p
+                      class="col-10"
+                      style="font-size: 14px; line-height: 0.5em"
+                    >
+                      Fecha: 17/12/2023
+                    </p>
+                  </div>
+                </form>
+                <div class="px-4 mt-3">
+                  <button type="button" class="btn btn-success mx-1" (click)="imprimirRet()">
+                    Confirmar
+                  </button>
+                  <button type="button" class="btn btn-secondary mx-1">
+                    Regresar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

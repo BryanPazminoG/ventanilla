@@ -1,0 +1,22 @@
+<nav class="navbar bg-light shadow-lg sidebar">
+  <ul class="navbar-nav text-center w-100">
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        href="depositos"
+        (mouseenter)="setActiveLink('Depositos')"
+        [ngClass]="{ active: activeLink === 'Depositos' }"
+        >Depósitos</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        href="retiros"
+        (mouseenter)="setActiveLink('Retiros')"
+        [ngClass]="{ active: activeLink === 'Retiros' }"
+        >Retiros</a
+      >
+    </li>
+  </ul>
+</nav>

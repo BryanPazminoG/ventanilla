@@ -1,0 +1,25 @@
+h4, h5{
+    color: #159768;
+}
+.title{
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+.contenido {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #DBD8D8;
+    width: 80%;
+}
+input[type=text], select{
+    background-color: #ECECEC;
+}
+button {
+    float: right;
+    width: 150px;
+}
+
+.borde-ancho {
+    border-bottom: 5px solid #ccc; 
+}

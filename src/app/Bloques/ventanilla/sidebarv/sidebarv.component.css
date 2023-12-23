@@ -1,0 +1,18 @@
+.active {
+    background-color: #1C9352;
+    color: #fff !important;
+  }
+
+  /* Estilos CSS */
+
+.sidebar {
+  height: 100vh; /* 100% de la altura de la ventana */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.navbar-nav {
+  flex-grow: 1; /* Ocupa el espacio restante */
+}
+
