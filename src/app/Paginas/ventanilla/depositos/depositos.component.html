@@ -34,6 +34,7 @@
                         type="text"
                         class="form-control"
                         placeholder="No. de Cuenta"
+                        name="numeroCuenta"
                         required
                       />
                     </div>
@@ -122,14 +123,18 @@
                       <input
                         type="text"
                         class="form-control"
-                        placeholder="Ingrese No. de Cuenta del Cliente"
+                        placeholder="Ingrese el numero de identificación"
                         required
                       />
                     </div>
                   </div>
                 </form>
                 <div class="px-4 mt-3">
-                  <button type="button" class="btn btn-success mx-1" (click)="validacionDep()">
+                  <button
+                    type="button"
+                    class="btn btn-success mx-1"
+                    (click)="validacionDep()"
+                  >
                     Continuar
                   </button>
                   <button type="button" class="btn btn-secondary mx-1">
