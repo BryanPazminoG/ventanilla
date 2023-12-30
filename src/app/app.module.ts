@@ -15,6 +15,7 @@ import { ValidacionDepComponent } from './Paginas/ventanilla/validacion-dep/vali
 import { ComprobanteDepComponent } from './Paginas/ventanilla/comprobante-dep/comprobante-dep.component';
 import { ValidacionRetComponent } from './Paginas/ventanilla/validacion-ret/validacion-ret.component';
 import { ComprobanteRetComponent } from './Paginas/ventanilla/comprobante-ret/comprobante-ret.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ComprobanteRetComponent } from './Paginas/ventanilla/comprobante-ret/co
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
