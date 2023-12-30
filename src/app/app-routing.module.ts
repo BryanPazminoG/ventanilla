@@ -11,6 +11,7 @@ import { ComprobanteRetComponent } from './Paginas/ventanilla/comprobante-ret/co
 
 const routes: Routes = [
   //{ path:'' , component: HomeComponent, pathMatch: 'full' },
+  { path: '', component: DepositosComponent },
   { path: 'depositos', component: DepositosComponent },
   { path: 'depositos-validacion', component: ValidacionDepComponent },
   { path: 'depositos-comprobante', component: ComprobanteDepComponent },

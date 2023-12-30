@@ -24,7 +24,7 @@
               <div class="row contenido my-3 p-5 rounded-4">
                 <h5>Datos Cuenta Beneficiario</h5>
                 <hr />
-                <form action="">
+                <form>
                   <div class="row">
                     <div class="col-6">
                       <p>No. Cuenta</p>
@@ -34,11 +34,17 @@
                         type="text"
                         class="form-control"
                         placeholder="No. de Cuenta"
+                        name="numeroCuenta"
+                        [(ngModel)]="numeroCuenta"
                         required
                       />
                     </div>
                     <div class="col-2 text-center">
-                      <button type="button" class="btn btn-success mx-1">
+                      <button
+                        type="button"
+                        class="btn btn-success mx-1"
+                        (click)="buscarCuenta()"
+                      >
                         <i class="bi bi-search"></i> Validar
                       </button>
                     </div>
@@ -51,7 +57,7 @@
                       <b>EDISON JAVIER TOAPANTA PICHUCHO</b>
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
-                      NO. 2256987413
+                      {{ cuentaEncontrada?.numeroCuenta }}
                     </p>
                   </div>
                   <br />
@@ -122,14 +128,18 @@
                       <input
                         type="text"
                         class="form-control"
-                        placeholder="Ingrese No. de Cuenta del Cliente"
+                        placeholder="Ingrese el numero de identificación"
                         required
                       />
                     </div>
                   </div>
                 </form>
                 <div class="px-4 mt-3">
-                  <button type="button" class="btn btn-success mx-1" (click)="validacionDep()">
+                  <button
+                    type="button"
+                    class="btn btn-success mx-1"
+                    (click)="validacionDep()"
+                  >
                     Continuar
                   </button>
                   <button type="button" class="btn btn-secondary mx-1">
