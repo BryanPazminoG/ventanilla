@@ -13,6 +13,9 @@ export class RetirosComponent {
   cuentaEncontrada: Cuenta | null = null;
   idCliente: any = this.cuentaEncontrada?.codCliente.toString;
   clienteEncontrado: Cliente | null = null;
+  dollars: number = 0;
+  ctvs: number = 0;
+  totalDollars: number = 0;
 
   constructor(
     private router: Router,
@@ -20,12 +23,18 @@ export class RetirosComponent {
     private clienteService: ClienteService
   ) {}
 
+  updateTotal(): void {
+    this.totalDollars = this.dollars + this.ctvs / 100;
+  }
+
   buscarCuenta(): void {
     this.cuentaService
       .buscarCuentaPorNumero(this.numeroCuenta)
       .subscribe((data) => {
         console.log(data);
         this.cuentaEncontrada = data;
+        this.idCliente = this.cuentaEncontrada!.codCliente;
+        this.buscarCliente();
       });
   }
 

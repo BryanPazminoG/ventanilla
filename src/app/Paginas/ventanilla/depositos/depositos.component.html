@@ -52,10 +52,13 @@
                   <div
                     class="col-12 my-3 p-4 rounded-3"
                     style="background-color: #ececec"
+                    *ngIf="clienteEncontrado"
                   >
                     <p style="color: #3d84a7; line-height: 0.8em">
-                      {{ clienteEncontrado?.nombres }}
-                      {{ clienteEncontrado?.apellidos }}
+                      <b>
+                        {{ clienteEncontrado?.nombres }}
+                        {{ clienteEncontrado?.apellidos }}
+                      </b>
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
                       {{ cuentaEncontrada?.numeroCuenta }}
@@ -84,6 +87,9 @@
                         class="form-control text-end"
                         placeholder="00"
                         required
+                        name="dollars"
+                        [(ngModel)]="dollars"
+                        (input)="updateTotal()"
                       />
                     </div>
                     <div class="input-group-append col-1 align-items-center">
@@ -92,6 +98,9 @@
                         class="form-control text-end"
                         placeholder="0"
                         required
+                        name="dollars"
+                        [(ngModel)]="ctvs"
+                        (input)="updateTotal()"
                       />
                     </div>
                     <br />
@@ -99,7 +108,12 @@
                   <div class="row">
                     <div class="col-6"></div>
                     <div class="col-6">
-                      <p>Total: <b style="color: #159768">$00.0</b></p>
+                      <p>
+                        Total:
+                        <b style="color: #159768" *ngIf="dollars || ctvs"
+                          >$ {{ totalDollars }}</b
+                        >
+                      </p>
                     </div>
                   </div>
                   <br />

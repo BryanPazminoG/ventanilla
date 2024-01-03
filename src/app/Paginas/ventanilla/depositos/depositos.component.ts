@@ -10,9 +10,12 @@ import { CuentaService } from "src/app/Servicios/cuenta.service";
 })
 export class DepositosComponent {
   numeroCuenta: string = "";
-  idCliente: string = "";
+  idCliente: any = "";
   cuentaEncontrada: Cuenta | null = null;
   clienteEncontrado: Cliente | null = null;
+  dollars: number = 0;
+  ctvs: number = 0;
+  totalDollars: number = 0;
 
   constructor(
     private router: Router,
@@ -20,12 +23,18 @@ export class DepositosComponent {
     private clienteService: ClienteService
   ) {}
 
+  updateTotal(): void {
+    this.totalDollars = this.dollars + this.ctvs / 100;
+  }
+  
   buscarCuenta(): void {
     this.cuentaService
       .buscarCuentaPorNumero(this.numeroCuenta)
       .subscribe((data) => {
         console.log(data);
         this.cuentaEncontrada = data;
+        this.idCliente = this.cuentaEncontrada!.codCliente;
+        this.buscarCliente();
       });
   }
 
@@ -43,7 +52,7 @@ export class DepositosComponent {
 }
 
 export interface Cuenta {
-  codCuenta: number;
+  codCuenta: any;
   numeroCuenta: string;
   codTipoCuenta: string;
   codCliente: number;
@@ -56,7 +65,7 @@ export interface Cuenta {
 }
 
 export interface Cliente {
-  codigo: number;
+  codigo: any;
   tipoCliente: string;
   tipoIdentificacion: string;
   numeroIdentificacion: string;

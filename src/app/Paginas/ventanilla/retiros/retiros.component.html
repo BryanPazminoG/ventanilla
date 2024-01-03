@@ -34,12 +34,18 @@
                         type="text"
                         class="form-control"
                         placeholder="No. de Cuenta"
+                        name="numeroCuenta"
+                        [(ngModel)]="numeroCuenta"
                         required
                       />
                     </div>
 
                     <div class="col-2 text-center">
-                      <button type="button" class="btn btn-success mx-1">
+                      <button
+                        type="button"
+                        class="btn btn-success mx-1"
+                        (click)="buscarCuenta()"
+                      >
                         <i class="bi bi-search"></i> Validar
                       </button>
                     </div>
@@ -47,12 +53,16 @@
                   <div
                     class="col-12 my-3 p-4 rounded-3"
                     style="background-color: #ececec"
+                    *ngIf="clienteEncontrado"
                   >
                     <p style="color: #3d84a7; line-height: 0.8em">
-                      <b>EDISON JAVIER TOAPANTA PICHUCHO</b>
+                      <b>
+                        {{ clienteEncontrado?.nombres }}
+                        {{ clienteEncontrado?.apellidos }}
+                      </b>
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
-                      NO. 2256987413
+                      {{ cuentaEncontrada?.numeroCuenta }}
                     </p>
                   </div>
                   <br />
@@ -67,26 +77,50 @@
                       >
                     </div>
 
-                    <div class="input-group-prepend col-2 align-items-center">
+                    <div
+                      class="input-group-prepend col-2 align-items-center mx-1"
+                    >
                       <input
                         type="number"
                         class="form-control text-end"
                         placeholder="00"
+                        required
+                        name="dollars"
+                        [(ngModel)]="dollars"
+                        (input)="updateTotal()"
                       />
                     </div>
-
-                    <div class="input-group-append col-1 align-self-end mx-1">
+                    <div class="input-group-append col-1 align-items-center">
                       <input
                         type="number"
                         class="form-control text-end"
                         placeholder="0"
+                        required
+                        name="dollars"
+                        [(ngModel)]="ctvs"
+                        (input)="updateTotal()"
                       />
                     </div>
                     <br />
                   </div>
+                  <div class="row">
+                    <div class="col-6"></div>
+                    <div class="col-6">
+                      <p>
+                        Total:
+                        <b style="color: #159768" *ngIf="dollars || ctvs"
+                          >$ {{ totalDollars }}</b
+                        >
+                      </p>
+                    </div>
+                  </div>
                 </form>
                 <div class="px-4 mt-3">
-                  <button type="button" class="btn btn-success mx-1" (click)="validacionRet()">
+                  <button
+                    type="button"
+                    class="btn btn-success mx-1"
+                    (click)="validacionRet()"
+                  >
                     Continuar
                   </button>
                   <button type="button" class="btn btn-secondary mx-1">
