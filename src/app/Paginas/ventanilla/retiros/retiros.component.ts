@@ -13,6 +13,9 @@ export class RetirosComponent {
   cuentaEncontrada: Cuenta | null = null;
   idCliente: any = this.cuentaEncontrada?.codCliente.toString;
   clienteEncontrado: Cliente | null = null;
+  mensajeValidacion = "";
+  dolar: number = 0;
+  moneda: number = 0;
 
   constructor(
     private router: Router,
@@ -20,12 +23,49 @@ export class RetirosComponent {
     private clienteService: ClienteService
   ) {}
 
+  limitarDigitos(event: any, maxLength: number): void {
+    const inputValue = event.target.value;
+    const currentLength = inputValue.length;
+  
+    if (currentLength >= maxLength) {
+      event.preventDefault();
+    }
+  }
+
+  validateFormat(event: KeyboardEvent | ClipboardEvent): void {
+    let key;
+  
+    if (event.type === 'paste') {
+      key = (event as ClipboardEvent).clipboardData?.getData('text/plain') || '';
+    } else {
+      key = (event as KeyboardEvent).key || String.fromCharCode((event as KeyboardEvent).keyCode);
+    }
+  
+    const regex = /[0-9]|\./;
+  
+    if (!regex.test(key)) {
+      if (event.preventDefault) {
+        event.preventDefault();
+      }
+      if (event.returnValue !== undefined) {
+        (event as any).returnValue = false;
+      }
+    }
+  }
+
+
   buscarCuenta(): void {
-    this.cuentaService
-      .buscarCuentaPorNumero(this.numeroCuenta)
+    this.cuentaService.buscarCuentaPorNumero(this.numeroCuenta)
       .subscribe((data) => {
         console.log(data);
-        this.cuentaEncontrada = data;
+        if(data){
+          this.cuentaEncontrada = data;
+          this.mensajeValidacion ="";
+        }
+        else{
+          this.cuentaEncontrada = null;
+          this.mensajeValidacion = "Numero de cuenta incorrecto";
+        }
       });
   }
 
@@ -41,7 +81,16 @@ export class RetirosComponent {
   validacionRet() {
     this.router.navigate(["retiros-validacion"]);
   }
+
+  cancelar(): void {
+    this.numeroCuenta = "";
+    
+    this.dolar = 0;
+    this.moneda = 0;
+  }
 }
+
+
 
 export interface Cuenta {
   codCuenta: number;

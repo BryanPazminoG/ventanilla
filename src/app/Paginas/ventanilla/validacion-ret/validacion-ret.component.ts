@@ -13,4 +13,8 @@ export class ValidacionRetComponent {
   imprimirRet() {
     this.router.navigate(['retiros-comprobante']);
   }
+
+  goToInicio() {
+    this.router.navigate(['retiros'])
+  }
 }

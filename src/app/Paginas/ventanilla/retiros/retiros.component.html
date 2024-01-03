@@ -34,12 +34,20 @@
                         type="text"
                         class="form-control"
                         placeholder="No. de Cuenta"
+                        name="numeroCuenta"
+                        pattern="[0-9]*" 
+                        maxlength="10" 
+                        [(ngModel)]="numeroCuenta"
+                        (keypress)="validateFormat($event)"
+                        id="numeroCuenta"
                         required
                       />
+                      <small id="mensajeIdentificacion" class="form-text text-danger"
+                        >{{mensajeValidacion}}</small>
                     </div>
 
                     <div class="col-2 text-center">
-                      <button type="button" class="btn btn-success mx-1">
+                      <button type="button" class="btn btn-success mx-1" (click)="buscarCuenta()">
                         <i class="bi bi-search"></i> Validar
                       </button>
                     </div>
@@ -70,6 +78,9 @@
                     <div class="input-group-prepend col-2 align-items-center">
                       <input
                         type="number"
+                        min="0"
+                        name="dolar"
+                        [(ngModel)]="dolar"
                         class="form-control text-end"
                         placeholder="00"
                       />
@@ -78,6 +89,9 @@
                     <div class="input-group-append col-1 align-self-end mx-1">
                       <input
                         type="number"
+                        min="0"
+                        name="moneda" [(ngModel)]="moneda"
+                        (keypress)="limitarDigitos($event, 2)"
                         class="form-control text-end"
                         placeholder="0"
                       />
@@ -89,8 +103,8 @@
                   <button type="button" class="btn btn-success mx-1" (click)="validacionRet()">
                     Continuar
                   </button>
-                  <button type="button" class="btn btn-secondary mx-1">
-                    Regresar
+                  <button type="button" class="btn btn-secondary mx-1" (click)="cancelar()">
+                    Cancelar
                   </button>
                 </div>
               </div>
