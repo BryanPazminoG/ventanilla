@@ -6,14 +6,11 @@
     </div>
   </div>
   <div class="row m-0">
-    <!-- Sidebar -->
     <div class="col-2 p-0 d-flex flex-column vh-100">
       <app-sidebarv class="flex-grow-1"></app-sidebarv>
     </div>
-    <!-- Main Content -->
 
     <div class="col-10 p-0 d-flex">
-      <!-- Aquí puedes colocar el contenido principal -->
       <div class="p-4 flex-grow-1" style="background-color: #dbd8d8">
         <div class="container">
           <div class="container-fluid">
@@ -24,7 +21,7 @@
               <div class="row contenido my-3 p-5 rounded-4">
                 <h5>Datos Cuenta Beneficiario</h5>
                 <hr />
-                <form>
+                <form (ngSubmit)="buscarCuenta()">
                   <div class="row">
                     <div class="col-6">
                       <p>No. Cuenta</p>
@@ -56,12 +53,12 @@
                   >
                     <p style="color: #3d84a7; line-height: 0.8em">
                       <b>
-                        {{ clienteEncontrado?.nombres }}
-                        {{ clienteEncontrado?.apellidos }}
+                        {{ clienteEncontrado!.nombres }}
+                        {{ clienteEncontrado!.apellidos }}
                       </b>
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
-                      {{ cuentaEncontrada?.numeroCuenta }}
+                      {{ cuentaEncontrada!.numeroCuenta }}
                     </p>
                   </div>
                   <br />
@@ -124,13 +121,17 @@
                       <p>Tipo de IDentificación:</p>
                     </div>
                     <div class="col-6">
-                      <select class="form-select form-control">
+                      <select
+                        class="form-select form-control"
+                        [(ngModel)]="tipoIdentificacion"
+                        name="tipoIdentificacion"
+                      >
                         <option selected>
                           Seleccione el Tipo de Identificación
                         </option>
-                        <option value="1">CEDULA</option>
-                        <option value="2">PASAPORTE</option>
-                        <option value="3">RUC</option>
+                        <option value="CED">CEDULA</option>
+                        <option value="PAS">PASAPORTE</option>
+                        <option value="RUC">RUC</option>
                       </select>
                     </div>
                   </div>
@@ -145,22 +146,24 @@
                         class="form-control"
                         placeholder="Ingrese el numero de identificación"
                         required
+                        name="numeroIdentificacion"
+                        [(ngModel)]="numeroIdentificacion"
                       />
                     </div>
                   </div>
+                  <div class="px-4 mt-3">
+                    <button
+                      type="submit"
+                      (click)="goToValidacion()"
+                      class="btn btn-success mx-1"
+                    >
+                      Continuar
+                    </button>
+                    <button type="button" class="btn btn-secondary mx-1">
+                      Cancelar
+                    </button>
+                  </div>
                 </form>
-                <div class="px-4 mt-3">
-                  <button
-                    type="button"
-                    class="btn btn-success mx-1"
-                    (click)="validacionDep()"
-                  >
-                    Continuar
-                  </button>
-                  <button type="button" class="btn btn-secondary mx-1">
-                    Cancelar
-                  </button>
-                </div>
               </div>
             </div>
           </div>
