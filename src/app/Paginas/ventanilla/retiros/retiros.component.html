@@ -7,7 +7,7 @@
   </div>
   <div class="row m-0">
     <!-- Sidebar -->
-    <div class="col-2 p-0 d-flex flex-column vh-100">
+    <div class="col-2 p-0 d-flex flex-column vh-90">
       <app-sidebarv class="flex-grow-1"></app-sidebarv>
     </div>
     <!-- Main Content -->
@@ -86,6 +86,7 @@
                         placeholder="00"
                         required
                         name="dollars"
+                        min="0"
                         [(ngModel)]="dollars"
                         (input)="updateTotal()"
                       />
@@ -97,6 +98,7 @@
                         placeholder="0"
                         required
                         name="dollars"
+                        min="0"
                         [(ngModel)]="ctvs"
                         (input)="updateTotal()"
                       />
