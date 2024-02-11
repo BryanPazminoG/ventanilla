@@ -25,44 +25,37 @@
                 <h5>Depositante</h5>
                 <hr />
                 <form action="">
-                  <div
-                    class="col-12 my-3 p-4 rounded-3"
-                    style="background-color: #ececec"
-                  >
+                  <div class="col-12 my-3 p-4 rounded-3" style="background-color: #ececec">
                     <p style="color: #3d84a7; line-height: 0.8em">
                       <b>{{ usuarioDepositante!.nombreUsuario }}</b>
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
-                      C.I: {{ usuarioDepositante!.identificacion }}
+                      C.I: {{ numeroIdentificacion }}
                     </p>
                   </div>
+                  <br/>
                   <div class="row">
                     <div class="col-9">
                       <h5>Beneficiario</h5>
                     </div>
-                    <div
-                      class="col-1 d-flex justify-content-end align-items-center"
-                    >
-                      <i
-                        style="
+                    <br>
+                    <div class="col-1 d-flex justify-content-end align-items-center">
+                      <i style="
                           color: #159768;
                           font-size: 1.5 em;
                           text-shadow: 1px 1px 2px;
-                        "
-                        class="bi bi-arrow-down"
-                      ></i>
+                        " class="bi bi-arrow-down"></i>
                     </div>
                     <div class="col-1">
-                      <h5 class="text-end">${{ infoTransaccion!.monto }}</h5>
+                      <h5 class="text-end">${{ infoTransaccion.monto }}</h5>
                     </div>
 
                     <hr />
                   </div>
 
-                  <div
-                    class="col-12 my-3 p-4 rounded-3"
-                    style="background-color: #ececec"
-                  >
+                  <div class="col-12 my-3 p-4 rounded-3" style="background-color: #ececec">
+                    <p style="color: #3d84a7; line-height: 0.8em">
+                      Fecha del Depósito: {{ infoTransaccion.fecha | date }}</p>
                     <p style="color: #3d84a7; line-height: 0.8em">
                       <b>{{ infoTransaccion!.nombreCliente }}</b>
                     </p>
@@ -70,22 +63,16 @@
                       NO. {{ infoTransaccion!.numeroCuenta }}
                     </p>
                   </div>
-                </form>
+                 </form>
                 <div class="px-4 mt-3">
-                  <button
-                    type="button"
-                    class="btn btn-success mx-1"
-                    (click)="depositar()"
-                  >
+                  <button type="button" class="btn btn-success mx-1" (click)="depositar()">
                     Confirmar
                   </button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary mx-1"
-                    (click)="goBack()"
-                  >
+                  <button type="button" class="btn btn-secondary mx-1" (click)="goBack()">
                     Regresar
                   </button>
+                </div>
+                <div>
                 </div>
               </div>
             </div>

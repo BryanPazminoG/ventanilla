@@ -7,14 +7,14 @@ import { Observable } from 'rxjs';
 })
 export class ClienteService {
 
-  private buscarClienteApi = "http://localost:8080/cliente/buscar-cliente";
+  private buscarClienteApi = "http://localhost:8081/api/v1/clientes";
   private buscarClientePorIdentificacionApi = "http://localhost:8080/cliente/buscar";
 
   constructor(private http: HttpClient) { }
 
   buscarClientePorId(id: string ): Observable<any> {
-    let params = new HttpParams().set('id', id);
-    return this.http.get<any>(this.buscarClienteApi, { params: params });
+    let url = `${this.buscarClienteApi}/${id}`;
+    return this.http.get<any>(url);
   }
 
   buscarClientePorIdentificacion(tipo: string, numero: string): Observable<any> {

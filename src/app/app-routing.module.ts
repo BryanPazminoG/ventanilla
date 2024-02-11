@@ -7,11 +7,12 @@ import { ValidacionDepComponent } from './Paginas/ventanilla/validacion-dep/vali
 import { ComprobanteDepComponent } from './Paginas/ventanilla/comprobante-dep/comprobante-dep.component';
 import { ValidacionRetComponent } from './Paginas/ventanilla/validacion-ret/validacion-ret.component';
 import { ComprobanteRetComponent } from './Paginas/ventanilla/comprobante-ret/comprobante-ret.component';
+import { LoginComponent } from './Paginas/ventanilla/login/login.component';
 
 
 const routes: Routes = [
   //{ path:'' , component: HomeComponent, pathMatch: 'full' },
-  { path: '', component: DepositosComponent },
+  { path: '', component: LoginComponent },
   { path: 'depositos', component: DepositosComponent },
   { path: 'depositos-validacion', component: ValidacionDepComponent },
   { path: 'depositos-comprobante', component: ComprobanteDepComponent },

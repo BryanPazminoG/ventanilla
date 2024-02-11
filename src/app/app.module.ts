@@ -16,6 +16,7 @@ import { ComprobanteDepComponent } from './Paginas/ventanilla/comprobante-dep/co
 import { ValidacionRetComponent } from './Paginas/ventanilla/validacion-ret/validacion-ret.component';
 import { ComprobanteRetComponent } from './Paginas/ventanilla/comprobante-ret/comprobante-ret.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './Paginas/ventanilla/login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FormsModule } from '@angular/forms';
     ComprobanteDepComponent,
     ValidacionRetComponent,
     ComprobanteRetComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

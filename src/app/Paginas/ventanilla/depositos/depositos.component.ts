@@ -36,24 +36,32 @@ export class DepositosComponent {
     private transaccionService: TransaccionService
   ) {}
 
+  
   goToValidacion() {
     this.buscarCuenta();
-    // this.router.navigate(["depositos-validacion"]);
+    this.buscarClientePorIdentificacion();
+    this.router.navigate(["/depositos-validacion"]);
   }
 
   updateTotal(): void {
     this.totalDollars = this.dollars + this.ctvs / 100;
   }
   
+  updateNumeroIdentificacion() {
+    this.flujoDatosService.changeNumeroIdentificacion(this.numeroIdentificacion);
+  }
+
   buscarCuenta(): void {
+
     this.cuentaService
       .buscarCuentaPorNumero(this.numeroCuenta)
       .subscribe((data) => {
         this.cuentaEncontrada = data;
+        
         this.idCliente = this.cuentaEncontrada!.codCliente;
-        this.buscarCliente();
+        this.buscarCliente(this.idCliente);
         this.buscarClientePorIdentificacion();
-        this.depositar();
+        // this.depositar();
       },
       (error) => {
         console.error("Error al encontrar la cuenta", error)
@@ -61,8 +69,9 @@ export class DepositosComponent {
       );
   }
 
-  buscarCliente(): void {
-    this.clienteService.buscarClientePorId(this.idCliente).subscribe((data) => {
+  buscarCliente(idCliente: string): void {
+    console.log(idCliente);
+    this.clienteService.buscarClientePorId(idCliente).subscribe((data) => {
       this.clienteEncontrado = data;
       this.flujoDatosService.setInfoTransaccion({
         fecha: new Date(),
@@ -109,7 +118,7 @@ export class DepositosComponent {
       data => {
         console.log(data);
         this.depositoCreado = data
-        this.router.navigate(['depositos-comprobante']);
+        this.router.navigate(['/depositos-comprobante']);
         alert("Se ha realizado el deposito");
       },
       error => {
@@ -119,6 +128,8 @@ export class DepositosComponent {
   }
 
 }
+
+
 
 export interface Cuenta {
   codCuenta: any;
@@ -150,3 +161,4 @@ export interface Cliente {
   fechaModificacion: string;
   version: number;
 }
+

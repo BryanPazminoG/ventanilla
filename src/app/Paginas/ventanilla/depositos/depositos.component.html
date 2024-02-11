@@ -20,50 +20,7 @@
                 <h4>Depósitos Bancarios</h4>
               </div>
               <div class="row contenido my-3 p-5 rounded-4">
-                <h5>Datos Cuenta Beneficiario</h5>
-                <hr />
-                <form (ngSubmit)="buscarCuenta()">
-                  <div class="row">
-                    <div class="col-4">
-                      <p>No. Cuenta</p>
-                    </div>
-                    <div class="col-6">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="No. de Cuenta"
-                        name="numeroCuenta"
-                        [(ngModel)]="numeroCuenta"
-                        required
-                      />
-                    </div>
-                    <div class="col-2 text-center">
-                      <button
-                        type="button"
-                        class="btn btn-success mx-1"
-                        (click)="buscarCuenta()"
-                      >
-                        <i class="bi bi-search"></i> Validar
-                      </button>
-                    </div>
-                  </div>
-                  <div
-                    class="col-12 my-3 p-4 rounded-3"
-                    style="background-color: #ececec"
-                    *ngIf="clienteEncontrado"
-                  >
-                    <p style="color: #3d84a7; line-height: 0.8em">
-                      <b>
-                        {{ clienteEncontrado!.nombres }}
-                        {{ clienteEncontrado!.apellidos }}
-                      </b>
-                    </p>
-                    <p style="font-size: 14px; line-height: 0.5em">
-                      {{ cuentaEncontrada!.numeroCuenta }}
-                    </p>
-                  </div>
-                  <br />
-                  <h5>Valor del Depósito</h5>
+                <h5>Valor del Depósito</h5>
                   <hr />
                   <div class="input-group mb-3">
                     <div class="col-6 align-self-start">
@@ -116,6 +73,48 @@
                       </p>
                     </div>
                   </div>
+                <h5>Datos Cuenta Beneficiario</h5>
+                <hr />
+                <form (ngSubmit)="buscarCuenta()">
+                  <div class="row">
+                    <div class="col-4">
+                      <p>No. Cuenta</p>
+                    </div>
+                    <div class="col-6">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="No. de Cuenta"
+                        name="numeroCuenta"
+                        [(ngModel)]="numeroCuenta"
+                        required
+                      />
+                    </div>
+                    <div class="col-2 text-center">
+                      <button
+                        type="button"
+                        class="btn btn-success mx-1"
+                        (click)="buscarCuenta()"
+                      >
+                        <i class="bi bi-search"></i> Validar
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="col-12 my-3 p-4 rounded-3"
+                    style="background-color: #ececec"
+                    *ngIf="clienteEncontrado"
+                  >
+                    <p style="color: #3d84a7; line-height: 0.8em">
+                      <b>
+                        {{ clienteEncontrado!.nombres }}
+                        {{ clienteEncontrado!.apellidos }}
+                      </b>
+                    </p>
+                    <p style="font-size: 14px; line-height: 0.5em">
+                      {{ cuentaEncontrada!.numeroCuenta }}
+                    </p>
+                  </div>
                   <br />
                   <h5>Depositante</h5>
                   <hr />
@@ -151,6 +150,7 @@
                         required
                         name="numeroIdentificacion"
                         [(ngModel)]="numeroIdentificacion"
+                        (ngModelChange)="updateNumeroIdentificacion()"
                       />
                     </div>
                   </div>

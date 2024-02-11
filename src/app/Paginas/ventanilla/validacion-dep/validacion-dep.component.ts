@@ -9,6 +9,8 @@ import { InfoDeposito, TransaccionService } from 'src/app/Servicios/transaccion.
   styleUrls: ['./validacion-dep.component.css']
 })
 export class ValidacionDepComponent implements OnInit, AfterViewInit {
+  numeroIdentificacion: string="";
+  
   infoTransaccion: Transaccion = {
     fecha: new Date,
     monto: 0,
@@ -19,7 +21,7 @@ export class ValidacionDepComponent implements OnInit, AfterViewInit {
     identificacion: "",
     nombreUsuario: ""
   };
-  infoDeposito: InfoDeposito= {
+  infoDeposito: InfoDeposito = {
     fechaCreacion: new Date(),
     numeroCuenta: "",
     valorDebe: 0
@@ -28,20 +30,22 @@ export class ValidacionDepComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router,
     private flujoDatosService: FlujoDatosService,
-    private transaccionService: TransaccionService  
-  ) {}
+    private transaccionService: TransaccionService
+  ) { }
 
   ngOnInit(): void {
-    // this.infoTransaccion = ;
-    // this.usuarioDepositante = ;
-  
+    //this.infoTransaccion = "";
+    //this.usuarioDepositante = "";
+    this.flujoDatosService.currentNumeroIdentificacion.subscribe(numero => this.numeroIdentificacion = numero);
+    this.infoTransaccion = this.flujoDatosService.getInfoTransaccion();
+    this.usuarioDepositante = this.flujoDatosService.getUsuarioDepositante();
     console.log("Info Transaccion:", this.flujoDatosService.getInfoTransaccion());
     console.log("Usuario Depositante:", this.flujoDatosService.getUsuarioDepositante());
   }
-  
+
 
   ngAfterViewInit(): void {
-    
+
   }
 
   depositar() {
@@ -53,15 +57,15 @@ export class ValidacionDepComponent implements OnInit, AfterViewInit {
     this.transaccionService.depositar(this.infoDeposito).subscribe(
       data => {
         console.log(data);
-        this.router.navigate(['depositos-comprobante']);
+        this.router.navigate(['/depositos-comprobante']);
       },
       error => {
         console.log("No se ha realizado el deposito", error)
       }
-    ) 
+    )
   }
 
-  goBack(){
+  goBack() {
     this.router.navigate(['depositos'])
   }
 }
