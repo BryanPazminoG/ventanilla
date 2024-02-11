@@ -22,7 +22,8 @@
                 <h4>Depósitos Bancarios</h4>
               </div>
               <div class="row contenido my-3 p-5 rounded-4">
-                <h5>Imprimir Comprobante de Depósito</h5>
+                <div class="imprimir">
+                <h5>Comprobante de Depósito</h5>
                 <form action="">
                   <div
                     class="col-12 my-3 p-4 rounded-3"
@@ -52,8 +53,9 @@
                     </p>
                   </div>
                 </form>
+              </div>
                 <div class="px-4 mt-3">
-                  <button type="button" class="btn btn-success mx-1">
+                  <button type="button" class="btn btn-success mx-1" (click)="generatePDF()">
                     Imprimir
                   </button>
                   <button type="button" class="btn btn-secondary mx-1">

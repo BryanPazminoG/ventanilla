@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class TransaccionService {
 
-  private depositarApi = "http://34.125.120.215:8080/transaccion/depositar-monto";
-  private retirarApi = "http://34.125.120.215:8080/transaccion/retirar"
+  private depositarApi = "http://localhost:8080/transaccion/depositar-monto";
+  private retirarApi = "http://localhost:8080/transaccion/retirar"
 
   constructor(private http: HttpClient) { }
 

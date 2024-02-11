@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class CuentaService {
 
-  private buscarCuentaApi = "http://34.125.120.215:8080/cuenta/buscar"
+  private buscarCuentaApi = "http://localhost:8080/cuenta/buscar"
 
   constructor(private http: HttpClient) { }
 
