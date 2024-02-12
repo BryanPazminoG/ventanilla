@@ -1,9 +1,8 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { ClienteService } from "src/app/Servicios/cliente.service";
-import { CuentaService } from "src/app/Servicios/cuenta.service";
+import { CuentaService, InfoDeposito, InfoRetirar } from "src/app/Servicios/cuenta.service";
 import { FlujoDatosService } from "src/app/Servicios/flujo-datos.service";
-import { InfoDeposito, InfoRetirar, TransaccionService } from "src/app/Servicios/transaccion.service";
 
 @Component({
   selector: "app-retiros",
@@ -32,8 +31,7 @@ export class RetirosComponent {
     private router: Router,
     private cuentaService: CuentaService,
     private clienteService: ClienteService,
-    private flujoDatosService: FlujoDatosService,
-    private transaccionService: TransaccionService
+    private flujoDatosService: FlujoDatosService
   ) {}
 
   goToValidacion() {
@@ -105,7 +103,7 @@ export class RetirosComponent {
       numeroCuenta: infoTransaccion!.numeroCuenta,
       valorDebe: infoTransaccion!.monto
     }
-    this.transaccionService.retirar(this.infoDeposito).subscribe(
+    this.cuentaService.retirar(this.infoDeposito).subscribe(
       data => {
         console.log(data);
         this.depositoCreado = data

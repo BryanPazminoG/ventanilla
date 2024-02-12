@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlujoDatosService, Transaccion, UsuarioDepositante } from 'src/app/Servicios/flujo-datos.service';
-import { InfoDeposito, TransaccionService } from 'src/app/Servicios/transaccion.service';
+import { CuentaService, InfoDeposito} from 'src/app/Servicios/cuenta.service';
 
 @Component({
   selector: 'app-validacion-dep',
@@ -30,7 +30,7 @@ export class ValidacionDepComponent implements OnInit, AfterViewInit {
 
   constructor(private router: Router,
     private flujoDatosService: FlujoDatosService,
-    private transaccionService: TransaccionService
+    private cuentaService: CuentaService
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +54,7 @@ export class ValidacionDepComponent implements OnInit, AfterViewInit {
       numeroCuenta: this.infoTransaccion!.numeroCuenta,
       valorDebe: this.infoTransaccion!.monto
     }
-    this.transaccionService.depositar(this.infoDeposito).subscribe(
+    this.cuentaService.depositar(this.infoDeposito).subscribe(
       data => {
         console.log(data);
         this.router.navigate(['/depositos-comprobante']);
