@@ -7,8 +7,8 @@ import { ReplaySubject, Observable} from 'rxjs';
 })
 export class CuentaService {
   
-  private depositarApi = "http://35.192.152.130:8089/api/v1/cuentas/api/v1/transacciones/depositos";
-  private retirarApi = "http://35.192.152.130:8089/api/v1/cuentas/transacciones/retiros"
+  private depositarApi = "http://35.192.152.130:8089/api/v1/transacciones/depositos";
+  private retirarApi = "http://35.192.152.130:8089/api/v1/transacciones/retiros"
   private buscarCuentaApi = "http://35.192.152.130:8089/api/v1/cuentas/numero"
   private infoDepositoSource = new ReplaySubject<InfoDeposito>(1); 
   currentInfoDeposito = this.infoDepositoSource.asObservable();

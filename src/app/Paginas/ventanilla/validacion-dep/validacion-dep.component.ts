@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlujoDatosService, Transaccion, UsuarioDepositante } from 'src/app/Servicios/flujo-datos.service';
-import { CuentaService, InfoDeposito} from 'src/app/Servicios/cuenta.service';
+import { CuentaService, InfoDeposito } from 'src/app/Servicios/cuenta.service';
 
 @Component({
   selector: 'app-validacion-dep',
@@ -9,7 +9,7 @@ import { CuentaService, InfoDeposito} from 'src/app/Servicios/cuenta.service';
   styleUrls: ['./validacion-dep.component.css']
 })
 export class ValidacionDepComponent implements OnInit, AfterViewInit {
-  numeroIdentificacion: string="";
+  numeroIdentificacion: string = "";
 
   infoTransaccion: Transaccion = {
     fecha: new Date,
@@ -55,14 +55,14 @@ export class ValidacionDepComponent implements OnInit, AfterViewInit {
       nombreCuenta: this.infoTransaccion.nombreCliente,
       valorDebe: this.infoTransaccion.monto
     };
-  
+
     this.router.navigate(['/ruta-del-componente-receptor'], {
       state: { datos: datosAEnviar }
     });
   }
 
   depositar() {
-    /*this.infoDeposito = {
+    this.infoDeposito = {
       fechaCreacion: this.infoTransaccion!.fecha,
       numeroCuenta: this.infoTransaccion!.numeroCuenta,
       nombreCuenta: this.infoTransaccion!.nombreCliente,
@@ -71,15 +71,15 @@ export class ValidacionDepComponent implements OnInit, AfterViewInit {
     this.cuentaService.depositar(this.infoDeposito).subscribe(
       data => {
         console.log(data);
-        console.log('Datos establecidos en el servicio:', this.infoDeposito);*/
+        console.log('Datos establecidos en el servicio:', this.infoDeposito);
         this.router.navigate(['/depositos-comprobante']);
-      /*  },
+      },
       error => {
         console.log("No se ha realizado el deposito", error)
       }
-    )*/
+    )
   }
-  
+
 
   goBack() {
     this.router.navigate(['depositos'])

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlujoDatosService, ClienteData, Transaccion } from "src/app/Servicios/flujo-datos.service";
-import {CuentaService, InfoRetirar} from "src/app/Servicios/cuenta.service";
+import { CuentaService, InfoRetirar } from "src/app/Servicios/cuenta.service";
 import { SharedDataService } from '../../../shared-data.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class ValidacionRetComponent implements OnInit {
 
   clienteEncontrado: { nombres: string; apellidos: string } | null = null;
   totalDollars: number | null = null;
-  
+
   infoTransaccion: Transaccion = {
     fecha: new Date,
     monto: 0,
@@ -45,28 +45,28 @@ export class ValidacionRetComponent implements OnInit {
   }
 
   imprimirRet() {
-      /*this.infoRetirar= {
-        fechaCreacion: this.infoTransaccion!.fecha,
-        numeroCuenta: this.infoTransaccion!.numeroCuenta,
-        nombreCuenta: this.infoTransaccion!.nombreCliente,
-        valorDebe: this.infoTransaccion!.monto
-      }
-      this.cuentaService.retirar(this.infoRetirar).subscribe(
-        data => {
-          console.log(data);
-          console.log('Datos establecidos en el servicio:', this.infoRetirar);*/
-          this.router.navigate(['/retiros-comprobante']);
-        /*  },
-        error => {
-          console.log("No se ha realizado el retiro", error)
-        }
-      )*/
+    /*this.infoRetirar= {
+      fechaCreacion: this.infoTransaccion!.fecha,
+      numeroCuenta: this.infoTransaccion!.numeroCuenta,
+      nombreCuenta: this.infoTransaccion!.nombreCliente,
+      valorDebe: this.infoTransaccion!.monto
     }
-    
-  
-    atras() {
-      this.router.navigate(['/retiros']);
+    this.cuentaService.retirar(this.infoRetirar).subscribe(
+      data => {
+        console.log(data);
+        console.log('Datos establecidos en el servicio:', this.infoRetirar);*/
+    this.router.navigate(['/retiros-comprobante']);
+    /*  },
+    error => {
+      console.log("No se ha realizado el retiro", error)
     }
+  )*/
+  }
+
+
+  atras() {
+    this.router.navigate(['/retiros']);
+  }
 
 
 }
