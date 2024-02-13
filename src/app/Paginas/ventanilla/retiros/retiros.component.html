@@ -11,7 +11,8 @@
       <app-sidebarv class="flex-grow-1"></app-sidebarv>
     </div>
     <!-- Main Content -->
-
+    <div class="scroll-container">
+      <div class="scroll-content">
     <div class="col-10 p-0 d-flex">
       <!-- Aquí puedes colocar el contenido principal -->
       <div class="p-4 flex-grow-1" style="background-color: #dbd8d8">
@@ -26,21 +27,21 @@
                 <hr />
                 <form action="">
                   <div class="row">
-                    <div class="col-6">
+                    <div class="col-4">
                       <p>No. Cuenta del Propietario</p>
                     </div>
-                    <div class="col-4">
+                    <div class="col-5">
                       <input
                         type="text"
                         class="form-control"
                         placeholder="No. de Cuenta"
                         name="numeroCuenta"
                         [(ngModel)]="numeroCuenta"
-                        required
-                      />
+                        required/>
                     </div>
 
-                    <div class="col-2 text-center">
+                    <div class="col-2 text-center" 
+                    style="margin-left: 50px;">
                       <button
                         type="button"
                         class="btn btn-success mx-1"
@@ -61,9 +62,9 @@
                         {{ clienteEncontrado!.apellidos }}
                       </b>
                     </p>
-                    <p style="font-size: 14px; line-height: 0.5em">
-                      {{ cuentaEncontrada?.numeroCuenta }}
-                    </p>
+                  </div>
+                  <div *ngIf="mensajeError" class="alert alert-danger">
+                    {{ mensajeError }}
                   </div>
                   <br />
                   <h5>Monto a Retirar:</h5>
@@ -115,18 +116,19 @@
                         >
                       </p>
                     </div>
+                    <div *ngIf="errorMonto" class="error-message">{{ errorMonto }}</div>
                   </div>
                 </form>
                 <div class="px-4 mt-3">
                   <button
                     type="button"
                     class="btn btn-success mx-1"
-                    (click)="validacionRet()"
+                    (click)="validarCamposYContinuar()"
                   >
                     Continuar
                   </button>
-                  <button type="button" class="btn btn-secondary mx-1">
-                    Regresar
+                  <button type="button" class="btn btn-secondary mx-1" (click)="cancelar()">
+                    Cancelar
                   </button>
                 </div>
               </div>
@@ -137,3 +139,6 @@
     </div>
   </div>
 </div>
+<footer>
+  © 2023 BancoBanquito. Todos los derechos reservados.
+</footer>

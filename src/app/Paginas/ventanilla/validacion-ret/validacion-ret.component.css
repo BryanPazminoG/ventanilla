@@ -1,6 +1,6 @@
 h4, h5{
     color: #159768;
-    margin-top: -8%;
+    margin-top: -10%;
 }
 .title{
     margin-left: auto;
@@ -27,3 +27,14 @@ button {
 .borde-ancho {
     border-bottom: 5px solid #ccc; 
 }
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background: linear-gradient(to top, #186f3f, #5eae75);
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 12.5px;
+  }

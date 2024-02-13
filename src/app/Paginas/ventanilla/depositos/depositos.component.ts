@@ -23,9 +23,13 @@ export class DepositosComponent {
   infoDeposito: InfoDeposito= {
     fechaCreacion: new Date(),
     numeroCuenta: "",
+    nombreCuenta:"",
     valorDebe: 0
   }
   depositoCreado: any = null;
+  errorCedula: string = '';
+  errorMonto: string = '';
+
 
   constructor(
     private router: Router,
@@ -36,9 +40,32 @@ export class DepositosComponent {
 
   
   goToValidacion() {
+    const esCedulaValida = this.validarCedula();
+    const esMontoValido = this.validarMonto();
+  
+    if (!esCedulaValida || !esMontoValido) {
+      return;
+    }
     this.buscarCuenta();
-    this.buscarClientePorIdentificacion();
     this.router.navigate(["/depositos-validacion"]);
+  }
+  
+  validarCedula(): boolean {
+    if (this.numeroIdentificacion.length !== 10 || !this.numeroIdentificacion.match(/^\d{10}$/)) {
+      this.errorCedula = 'Cédula inválida. Debe tener 10 dígitos y solo contener números.';
+      return false;
+    }
+    this.errorCedula = ''; 
+    return true;
+  }
+
+  validarMonto(): boolean {
+    if (this.totalDollars < 0) {
+      this.errorMonto = 'Monto invalido (debe ser mayor a $0.00)';
+      return false;
+    }
+    this.errorMonto = ''; 
+    return true;
   }
 
   updateTotal(): void {
@@ -110,6 +137,7 @@ export class DepositosComponent {
     this.infoDeposito = {
       fechaCreacion: infoTransaccion!.fecha,
       numeroCuenta: infoTransaccion!.numeroCuenta,
+      nombreCuenta: infoTransaccion!.nombreCliente,
       valorDebe: infoTransaccion!.monto
     }
     this.cuentaService.depositar(this.infoDeposito).subscribe(
@@ -124,6 +152,27 @@ export class DepositosComponent {
       }
     ) 
   }
+
+  cancelar(): void {
+    this.numeroCuenta = '';
+    this.idCliente = '';
+    this.cuentaEncontrada = null;
+    this.clienteEncontrado = null;
+    this.clienteDepositante = null;
+    this.dollars = 0;
+    this.ctvs = 0;
+    this.totalDollars = 0;
+    this.numeroIdentificacion = '';
+    this.tipoIdentificacion = '';
+    this.infoDeposito = {
+      fechaCreacion: new Date(),
+      numeroCuenta: '',
+      nombreCuenta: '',
+      valorDebe: 0
+    };
+    this.depositoCreado = null;
+  }
+  
 
 }
 

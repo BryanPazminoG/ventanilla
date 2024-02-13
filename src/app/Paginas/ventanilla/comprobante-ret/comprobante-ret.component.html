@@ -21,7 +21,7 @@
               <div class="row title mt-5">
                 <h4>Retiros Bancarios</h4>
               </div>
-              <div class="row contenido my-3 p-5 rounded-4">
+              <div class="row contenido my-3 p-5 rounded-4" style="margin-top: -30px;">
                 <div class="imprimir">
                 <h5>Comprobante de Retiro</h5>
               
@@ -38,19 +38,19 @@
                     </p>
                     <br />
                     <p style="font-size: 14px; line-height: 0.5em">
-                      Cuenta: 2256987413
+                      Cuenta: {{ numeroCuenta }}
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
-                      Nombre: Edison Toapanta
+                      Nombre: {{ clienteEncontrado?.nombres }} {{ clienteEncontrado?.apellidos }}
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
                       Documento: 112548963
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
-                      Total: 200.50
+                      Total: ${{totalDollars}}
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
-                      Fecha: 17/12/2023
+                      Fecha: {{ currentDate | date: 'dd/MM/yyyy' }}
                     </p>
                   </div>
                 </form>
@@ -59,7 +59,7 @@
                   <button type="button" class="btn btn-success mx-1" (click)="generatePDF()">
                     Imprimir
                   </button>
-                  <button type="button" class="btn btn-secondary mx-1">
+                  <button type="button" class="btn btn-secondary mx-1"routerLink="/retiros">
                     Regresar
                   </button>
                 </div>
@@ -71,3 +71,6 @@
     </div>
   </div>
 </div>
+<footer>
+  © 2023 BancoBanquito. Todos los derechos reservados.
+</footer>

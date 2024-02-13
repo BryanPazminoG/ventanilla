@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { Router } from '@angular/router';
+import { SharedDataService } from 'src/app/shared-data.service';
 
 
 @Component({
@@ -8,11 +10,26 @@ import html2canvas from 'html2canvas';
   templateUrl: './comprobante-ret.component.html',
   styleUrls: ['./comprobante-ret.component.css']
 })
-export class ComprobanteRetComponent {
+export class ComprobanteRetComponent implements OnInit{
+  numeroCuenta: string = '';
+  currentDate = new Date();
+
+  clienteEncontrado: { nombres: string; apellidos: string } | null = null;
+  totalDollars: number | null = null;
+  router: any;
+
+    constructor(
+      private sharedDataService: SharedDataService) { }
+
+    ngOnInit() {
+      this.numeroCuenta = this.sharedDataService.getNumeroCuenta();
+      this.clienteEncontrado = this.sharedDataService.getClienteEncontrado();
+      this.totalDollars = this.sharedDataService.getTotalDollars();
   
+    }
   generatePDF() {
     const content = document.querySelector('.imprimir');
-  
+
     if (content instanceof HTMLElement) {
       html2canvas(content).then(canvas => {
         const imgWidth = 250;
@@ -33,4 +50,8 @@ export class ComprobanteRetComponent {
       console.error('El elemento especificado no se encontró o no es un HTMLElement.');
     }
   }
+  goBack() {
+    this.router.navigate(['retiros'])
+  }
+
 }

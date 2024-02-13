@@ -25,13 +25,13 @@
                 <form action="">
                   <div
                     class="col-12 my-3 p-4 rounded-3"
-                    style="background-color: #fdfdfd; margin-top: 10%;"
+                    style="background-color: #fdfdfd; margin-top: 10%;" 
                   >
                     <p style="color: #3d84a7; line-height: 0.8em">
-                      <b>EDISON JAVIER TOAPANTA PICHUCHO</b>
+                      <b></b>
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
-                      No. 2256987413
+                      {{ numeroCuenta }}
                     </p>
                   </div>
                   <div
@@ -43,7 +43,6 @@
                         <h5>Retiro</h5>
                       </div>
                     </div>
-
                     <div
                       class="col-12 my-3 p-4 rounded-3 border"
                       style="background-color: #fdfdfd"
@@ -51,18 +50,24 @@
                       <p style="color: #159768; line-height: 0.8em">
                         <b>Cuenta Tradicional</b>
                       </p>
-                      <div class="row">
+                      <div class="row" >
                         <p
                           class="col-10"
                           style="font-size: 14px; line-height: 0.5em"
                         >
-                          2256987413
+                        {{ clienteEncontrado?.nombres }} {{ clienteEncontrado?.apellidos }}
+                        </p>
+                        <p
+                          class="col-10"
+                          style="font-size: 14px; line-height: 0.5em"
+                        >
+                        {{ numeroCuenta }}
                         </p>
                         <p
                           class="col-1"
                           style="color: #159768; line-height: 0.8em"
                         >
-                          $200.50
+                         ${{totalDollars}}
                         </p>
                       </div>
                     </div>
@@ -70,7 +75,7 @@
                       class="col-10"
                       style="font-size: 14px; line-height: 0.5em"
                     >
-                      Fecha: 17/12/2023
+                    {{ currentDate | date: 'dd/MM/yyyy' }}
                     </p>
                   </div>
                 </form>
@@ -82,8 +87,8 @@
                   >
                     Confirmar
                   </button>
-                  <button type="button" class="btn btn-secondary mx-1">
-                    Regresar
+                  <button type="button" class="btn btn-secondary mx-1" (click)="atras()">
+                    Cancelar
                   </button>
                 </div>
               </div>
@@ -94,3 +99,6 @@
     </div>
   </div>
 </div>
+<footer>
+  © 2023 BancoBanquito. Todos los derechos reservados.
+</footer>

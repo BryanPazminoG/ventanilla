@@ -37,19 +37,19 @@
                     </p>
                     <br />
                     <p style="font-size: 14px; line-height: 0.5em">
-                      Cuenta: 2256987413
+                      Cuenta: {{ infoTransaccion!.numeroCuenta }}
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
-                      Nombre del Beneficiario: Edison Toapanta
+                      Nombre del Beneficiario: {{ infoTransaccion!.nombreCliente }}
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
                       Documento: 112548963
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
-                      Total: $100.53
+                      Total: ${{ infoTransaccion.monto }}
                     </p>
                     <p style="font-size: 14px; line-height: 0.5em">
-                      Fecha: 12/12/2023
+                      Fecha: {{ infoTransaccion.fecha | date }}
                     </p>
                   </div>
                 </form>
@@ -58,8 +58,8 @@
                   <button type="button" class="btn btn-success mx-1" (click)="generatePDF()">
                     Imprimir
                   </button>
-                  <button type="button" class="btn btn-secondary mx-1">
-                    Regresar
+                  <button type="button" class="btn btn-secondary mx-1" (click)="goBack()">
+                    Cancelar
                   </button>
                 </div>
               </div>
@@ -70,3 +70,6 @@
     </div>
   </div>
 </div>
+<footer>
+  © 2023 BancoBanquito. Todos los derechos reservados.
+</footer>

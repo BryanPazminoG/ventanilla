@@ -1,8 +1,10 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { ClienteService } from "src/app/Servicios/cliente.service";
-import { CuentaService, InfoDeposito, InfoRetirar } from "src/app/Servicios/cuenta.service";
-import { FlujoDatosService } from "src/app/Servicios/flujo-datos.service";
+import { CuentaService, InfoRetirar } from "src/app/Servicios/cuenta.service";
+import { FlujoDatosService, ClienteData } from "src/app/Servicios/flujo-datos.service";
+import { SharedDataService } from '../../../shared-data.service';
+import { ValidacionRetComponent } from "../validacion-ret/validacion-ret.component";
 
 @Component({
   selector: "app-retiros",
@@ -12,25 +14,31 @@ import { FlujoDatosService } from "src/app/Servicios/flujo-datos.service";
 export class RetirosComponent {
   numeroCuenta: string = "";
   idCliente: any = "";
+  nombres: string ="";
+  apellidos: string="";
   cuentaEncontrada: Cuenta | null = null;
-  clienteEncontrado: Cliente | null = null;
+  clienteEncontrado = { nombres: '', apellidos: '' };
+  totalDollars: number = 0;
   clienteDepositante: Cliente | null = null;
   dollars: number = 0;
   ctvs: number = 0;
-  totalDollars: number = 0;
   numeroIdentificacion: string = "";
   tipoIdentificacion: string = "";
-  infoDeposito: InfoRetirar= {
+  infoRetirar: InfoRetirar= {
     fechaCreacion: new Date(),
     numeroCuenta: "",
+    nombreCuenta: "",
     valorDebe: 0
   }
   depositoCreado: any = null;
-
+  errorMonto: string = '';
+  mensajeError: string = '';
+  
   constructor(
     private router: Router,
     private cuentaService: CuentaService,
     private clienteService: ClienteService,
+    private sharedDataService: SharedDataService,
     private flujoDatosService: FlujoDatosService
   ) {}
 
@@ -50,7 +58,6 @@ export class RetirosComponent {
         this.cuentaEncontrada = data;
         this.idCliente = this.cuentaEncontrada!.codCliente;
         this.buscarCliente();
-        this.buscarClientePorIdentificacion();
         this.retirar();
       },
       (error) => {
@@ -98,12 +105,13 @@ export class RetirosComponent {
 
   retirar() {
     const infoTransaccion = this.flujoDatosService.getInfoTransaccion()
-    this.infoDeposito = {
+    this.infoRetirar = {
       fechaCreacion: infoTransaccion!.fecha,
       numeroCuenta: infoTransaccion!.numeroCuenta,
+      nombreCuenta: infoTransaccion!.numeroCuenta,
       valorDebe: infoTransaccion!.monto
     }
-    this.cuentaService.retirar(this.infoDeposito).subscribe(
+    this.cuentaService.retirar(this.infoRetirar).subscribe(
       data => {
         console.log(data);
         this.depositoCreado = data
@@ -116,7 +124,65 @@ export class RetirosComponent {
     ) 
   }
   validacionRet() {
-    this.router.navigate(["retiros-validacion"]);
+    this.guardarDatos();
+    const esMontoValido = this.validarMonto();
+    if ( !esMontoValido) {
+      return;
+    }
+    this.router.navigate(["/retiros-validacion"]);
+  }
+
+  validarCamposYContinuar() {
+    if (this.numeroCuenta && (this.dollars !== null && this.dollars > 0) && (this.ctvs !== null && this.ctvs >= 0)) {
+      this.validacionRet();
+    }else{
+      this.mensajeError = 'Ingrese todos los datos';
+    }
+  }
+
+  validarMonto(): boolean {
+    if (this.totalDollars < 0) {
+      this.errorMonto = 'Monto invalido (debe ser mayor a $0.00)';
+      return false;
+    }
+    this.errorMonto = ''; 
+    return true;
+  }
+
+  enviarDatos() {
+    const data: ClienteData = {
+      numeroCuenta: this.numeroCuenta,
+      nombres: this.nombres,
+      apellidos: this.apellidos,
+      dollars: this.dollars,
+      ctvs: this.ctvs,
+      totalDollars: this.totalDollars,
+    };
+
+    this.flujoDatosService.updateClienteData(data);
+  }
+
+  cancelar(): void {
+    this.numeroCuenta = "";
+    this.idCliente = "";
+    this.cuentaEncontrada = null;
+    this.clienteDepositante = null;
+    this.dollars = 0;
+    this.ctvs = 0;
+    this.totalDollars = 0;
+    this.numeroIdentificacion = "";
+    this.tipoIdentificacion = "";
+    this.infoRetirar = {
+      fechaCreacion: new Date(),
+      numeroCuenta: "",
+      nombreCuenta: "",
+      valorDebe: 0
+    };
+    this.depositoCreado = null;
+  }
+  
+  guardarDatos() {
+    this.sharedDataService.setDatosRetiro(this.numeroCuenta, this.clienteEncontrado, this.totalDollars);
   }
 }
 

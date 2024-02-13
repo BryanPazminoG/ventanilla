@@ -1,15 +1,17 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ReplaySubject, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CuentaService {
-
-  private depositarApi = "http://localhost:8080/api/v1/cuentas/depositar-monto";
-  private retirarApi = "http://localhost:8080/api/v1/cuentas/retirar"
-  private buscarCuentaApi = "http://localhost:8080/api/v1/cuentas/numero"
+  
+  private depositarApi = "http://35.192.152.130:8089/api/v1/cuentas/api/v1/transacciones/depositos";
+  private retirarApi = "http://35.192.152.130:8089/api/v1/cuentas/transacciones/retiros"
+  private buscarCuentaApi = "http://35.192.152.130:8089/api/v1/cuentas/numero"
+  private infoDepositoSource = new ReplaySubject<InfoDeposito>(1); 
+  currentInfoDeposito = this.infoDepositoSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -25,9 +27,15 @@ export class CuentaService {
     let url = `${this.buscarCuentaApi}/${numeroCuenta}`;
     return this.http.get<any>(url);
   }
+
+  changeInfoDeposito(infoDeposito: InfoDeposito) {
+    this.infoDepositoSource.next(infoDeposito);
+  }
+
 }
 
 export interface InfoDeposito {
+  nombreCuenta: string;
   numeroCuenta: string;
   valorDebe: number;
   fechaCreacion: Date;
@@ -35,6 +43,7 @@ export interface InfoDeposito {
 
 export interface InfoRetirar {
   numeroCuenta: string;
+  nombreCuenta: string;
   valorDebe: number;
   fechaCreacion: Date;
 }
