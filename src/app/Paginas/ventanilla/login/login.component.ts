@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SegUsuarioService } from 'src/app/Servicios/seg-usuario.service';
 import { Router } from '@angular/router';
 import { FlujoDatosService } from 'src/app/Servicios/flujo-datos.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -9,19 +10,13 @@ import { FlujoDatosService } from 'src/app/Servicios/flujo-datos.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
-  private usuarioLogin: Object = {
-    nombre: "",
-    usuario: ""
-  }
+
   credenciales = {
     "usuario": "",
     "clave": ""
   }
   primeraVisita = true;
   accesoValidacion = false;
-/******* LOGIN *********/
-private validacionLogin: boolean = false;
-private userLogin: string = "";
 
   constructor(private segUsuarioService: SegUsuarioService, private router: Router, private flujoDatos: FlujoDatosService){}
 
@@ -40,7 +35,17 @@ private userLogin: string = "";
       (data) => {
         if(data){
           this.flujoDatos.setValidacionLogin(this.credenciales.usuario);
-          this.router.navigate(["/clientes"]);
+          if(data.acceso == "Cajero"){
+            this.router.navigate(["/depositos"]);
+          } else {
+            Swal.fire({
+              title: 'Error de acceso',
+              text: 'No tiene acceso a Ventanilla',
+              icon: 'error',
+              confirmButtonText: 'Aceptar'
+            });
+          }
+          
         }else{
           this.accesoValidacion = false;
         }
@@ -52,24 +57,4 @@ private userLogin: string = "";
       }
     );
   }
-
-  /*************** SETTER AND GETTER DE LOGIN ******************/
-  public setUsuarioLogin(usuario: object) {
-    this.usuarioLogin = usuario;
-  }
-  public getUsuarioLogin(): object {
-    return this.usuarioLogin;
-  }
-  public setValidacionLogin(userLogin: string) {
-    localStorage.setItem("user", userLogin);
-    this.userLogin = userLogin;
-  }
-  public getValidacionLogin(): string {
-    return this.userLogin;
-  }
-
-  public closeSession(){
-    localStorage.clear();
-  }
-
 }

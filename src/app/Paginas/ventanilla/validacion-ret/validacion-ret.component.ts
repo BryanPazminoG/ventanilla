@@ -24,10 +24,8 @@ export class ValidacionRetComponent implements OnInit {
   };
 
   infoRetirar: InfoRetirar = {
-    fechaCreacion: new Date,
     numeroCuenta: '',
-    nombreCuenta: '',
-    valorDebe: 0
+    valorHaber: 0
   };
 
   constructor(
@@ -46,10 +44,9 @@ export class ValidacionRetComponent implements OnInit {
 
   imprimirRet() {
     this.infoRetirar= {
-      fechaCreacion: this.infoTransaccion!.fecha,
-      numeroCuenta: this.infoTransaccion!.numeroCuenta,
-      nombreCuenta: this.infoTransaccion!.nombreCliente,
-      valorDebe: this.infoTransaccion!.monto +5
+      numeroCuenta: this.numeroCuenta, 
+      valorHaber: this.totalDollars!
+
     }
     this.cuentaService.retirar(this.infoRetirar).subscribe(
       data => {

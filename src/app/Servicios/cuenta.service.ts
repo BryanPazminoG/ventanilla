@@ -23,7 +23,7 @@ export class CuentaService {
     return this.http.post<any>(this.depositarApi, infoDeposito);
   }
 
-  retirar(infoRetirar: any): Observable<any> {
+  retirar(infoRetirar: InfoRetirar): Observable<any> {
     return this.http.put<any>(this.retirarApi, infoRetirar)
   }
 
@@ -47,7 +47,5 @@ export interface InfoDeposito {
 
 export interface InfoRetirar {
   numeroCuenta: string;
-  nombreCuenta: string;
-  valorDebe: number;
-  fechaCreacion: Date;
+  valorHaber: number;
 }

@@ -25,10 +25,8 @@ export class RetirosComponent {
   numeroIdentificacion: string = "";
   tipoIdentificacion: string = "";
   infoRetirar: InfoRetirar= {
-    fechaCreacion: new Date(),
     numeroCuenta: "",
-    nombreCuenta: "",
-    valorDebe: 0
+    valorHaber: 0
   }
   depositoCreado: any = null;
   errorMonto: string = '';
@@ -106,10 +104,8 @@ export class RetirosComponent {
   retirar() {
     const infoTransaccion = this.flujoDatosService.getInfoTransaccion()
     this.infoRetirar = {
-      fechaCreacion: infoTransaccion!.fecha,
       numeroCuenta: infoTransaccion!.numeroCuenta,
-      nombreCuenta: infoTransaccion!.numeroCuenta,
-      valorDebe: infoTransaccion!.monto
+      valorHaber: infoTransaccion!.monto
     }
     this.cuentaService.retirar(this.infoRetirar).subscribe(
       data => {
@@ -173,10 +169,8 @@ export class RetirosComponent {
     this.numeroIdentificacion = "";
     this.tipoIdentificacion = "";
     this.infoRetirar = {
-      fechaCreacion: new Date(),
       numeroCuenta: "",
-      nombreCuenta: "",
-      valorDebe: 0
+      valorHaber: 0
     };
     this.depositoCreado = null;
   }
