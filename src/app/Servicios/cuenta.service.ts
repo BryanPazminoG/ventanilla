@@ -7,10 +7,14 @@ import { ReplaySubject, Observable} from 'rxjs';
 })
 export class CuentaService {
   
-  private depositarApi = "http://35.192.152.130:8089/api/v1/transacciones/depositos";
+  //private depositarApi = "http://localhost:8080/api/v1/transacciones/depositos";
+  //private retirarApi = "http://localhost:8080/api/v1/transacciones/retiros"
+  //private buscarCuentaApi = "http://localhost:8080/api/v1/cuentas/numero"
+
+ private depositarApi = "http://35.192.152.130:8089/api/v1/transacciones/depositos";
   private retirarApi = "http://35.192.152.130:8089/api/v1/transacciones/retiros"
-  private buscarCuentaApi = "http://35.192.152.130:8089/api/v1/cuentas/numero"
-  private infoDepositoSource = new ReplaySubject<InfoDeposito>(1); 
+ private buscarCuentaApi = "http://35.192.152.130:8089/api/v1/cuentas/numero"
+ private infoDepositoSource = new ReplaySubject<InfoDeposito>(1); 
   currentInfoDeposito = this.infoDepositoSource.asObservable();
 
   constructor(private http: HttpClient) { }
@@ -20,7 +24,7 @@ export class CuentaService {
   }
 
   retirar(infoRetirar: any): Observable<any> {
-    return this.http.post<any>(this.retirarApi, infoRetirar)
+    return this.http.put<any>(this.retirarApi, infoRetirar)
   }
 
   buscarCuentaPorNumero(numeroCuenta: string): Observable<any> {

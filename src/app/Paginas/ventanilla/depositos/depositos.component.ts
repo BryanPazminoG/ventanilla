@@ -86,10 +86,10 @@ export class DepositosComponent {
         this.idCliente = this.cuentaEncontrada!.codCliente;
         this.buscarCliente(this.idCliente);
         this.buscarClientePorIdentificacion();
-        // this.depositar();
       },
       (error) => {
         console.error("Error al encontrar la cuenta", error)
+        
       }
       );
   }

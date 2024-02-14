@@ -114,7 +114,6 @@ export class RetirosComponent {
     this.cuentaService.retirar(this.infoRetirar).subscribe(
       data => {
         console.log(data);
-        this.depositoCreado = data
         this.router.navigate(['depositos-comprobante']);
         alert("Se ha realizado el deposito");
       },
@@ -123,6 +122,7 @@ export class RetirosComponent {
       }
     ) 
   }
+
   validacionRet() {
     this.guardarDatos();
     const esMontoValido = this.validarMonto();

@@ -45,22 +45,23 @@ export class ValidacionRetComponent implements OnInit {
   }
 
   imprimirRet() {
-    /*this.infoRetirar= {
+    this.infoRetirar= {
       fechaCreacion: this.infoTransaccion!.fecha,
       numeroCuenta: this.infoTransaccion!.numeroCuenta,
       nombreCuenta: this.infoTransaccion!.nombreCliente,
-      valorDebe: this.infoTransaccion!.monto
+      valorDebe: this.infoTransaccion!.monto +5
     }
     this.cuentaService.retirar(this.infoRetirar).subscribe(
       data => {
         console.log(data);
-        console.log('Datos establecidos en el servicio:', this.infoRetirar);*/
+        console.log('Datos establecidos en el servicio:', this.infoRetirar);
     this.router.navigate(['/retiros-comprobante']);
-    /*  },
+    },
     error => {
       console.log("No se ha realizado el retiro", error)
+     
     }
-  )*/
+  )
   }
 
 
