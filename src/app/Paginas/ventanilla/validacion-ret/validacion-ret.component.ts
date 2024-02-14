@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FlujoDatosService, ClienteData, Transaccion } from "src/app/Servicios/flujo-datos.service";
 import { CuentaService, InfoRetirar } from "src/app/Servicios/cuenta.service";
 import { SharedDataService } from '../../../shared-data.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-validacion-ret',
@@ -50,13 +51,22 @@ export class ValidacionRetComponent implements OnInit {
     }
     this.cuentaService.retirar(this.infoRetirar).subscribe(
       data => {
-        console.log(data);
-        console.log('Datos establecidos en el servicio:', this.infoRetirar);
+        Swal.fire({
+          title: 'Retiro',
+          text: ' Realizado correctamente',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
     this.router.navigate(['/retiros-comprobante']);
     },
     error => {
       console.log("No se ha realizado el retiro", error)
-     
+      Swal.fire({
+        title: 'Retiro',
+        text: ' No se pudo realizar el retiro',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
     }
   )
   }

@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlujoDatosService, Transaccion, UsuarioDepositante } from 'src/app/Servicios/flujo-datos.service';
 import { CuentaService, InfoDeposito } from 'src/app/Servicios/cuenta.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-validacion-dep',
@@ -70,12 +71,22 @@ export class ValidacionDepComponent implements OnInit, AfterViewInit {
     }
     this.cuentaService.depositar(this.infoDeposito).subscribe(
       data => {
-        console.log(data);
-        console.log('Datos establecidos en el servicio:', this.infoDeposito);
+        Swal.fire({
+          title: 'Deposito',
+          text: ' Realizado correctamente',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
         this.router.navigate(['/depositos-comprobante']);
       },
       error => {
         console.log("No se ha realizado el deposito", error)
+        Swal.fire({
+          title: 'Deposito',
+          text: ' No se pudo realizar el deposito',
+          icon: 'error',
+          confirmButtonText: 'Aceptar'
+        });
       }
     )
   }
