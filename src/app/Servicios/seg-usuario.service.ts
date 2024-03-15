@@ -8,12 +8,13 @@ import { FlujoDatosService } from './flujo-datos.service';
 })
 export class SegUsuarioService {
 
-  private loginUsuarioApi: string = "http://34.16.181.123:8082/user/";
+  private loginUsuarioApi: string = "http://localhost:8096/api/v1/accesos/login";
+
   private buscarRoles: string = "http://34.16.181.123:8082/rol/buscar-todos/";
   private personal: string = "http://34.16.181.123:8082/personal-bancario/create";
   private accesoP: string = "http://34.16.181.123:8082/accesoPbRol/createAcceso";
   ///////////////////////////////////////////////////////////////////////////////
-  private accesoUsuario: string = "http://34.173.172.59:8093/api/v1/empleados/sesiones";
+  private accesoUsuario: string = "http://localhost:8096/api/v1/accesos/login";
 
   constructor(private http: HttpClient, private flujoDatosService: FlujoDatosService) { }
 

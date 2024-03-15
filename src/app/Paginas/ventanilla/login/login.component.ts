@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit{
 
   credenciales = {
     "usuario": "",
-    "clave": ""
+    "contrasena": "",
+    "tipo":""
   }
   primeraVisita = true;
   accesoValidacion = false;
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit{
   }
 
   loginUser(){
-    if(this.credenciales.usuario != '' && this.credenciales.clave  != '')
+    if(this.credenciales.usuario != '' && this.credenciales.contrasena  != '')
     this.primeraVisita = false;
     this.accesoValidacion = true;
 
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit{
       (data) => {
         if(data){
           this.flujoDatos.setValidacionLogin(this.credenciales.usuario);
-          if(data.acceso == "Cajero"){
+          if(data){
             this.router.navigate(["/depositos"]);
           } else {
             Swal.fire({
