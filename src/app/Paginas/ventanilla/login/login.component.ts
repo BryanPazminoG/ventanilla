@@ -13,8 +13,8 @@ export class LoginComponent implements OnInit{
 
   credenciales = {
     "usuario": "",
-    "contrasena": "",
-    "tipo":""
+    "clave": "",
+    "tipo":"Ventanilla"
   }
   primeraVisita = true;
   accesoValidacion = false;
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit{
   }
 
   loginUser(){
-    if(this.credenciales.usuario != '' && this.credenciales.contrasena  != '')
+    if(this.credenciales.usuario != '' && this.credenciales.clave  != '')
     this.primeraVisita = false;
     this.accesoValidacion = true;
 
@@ -36,18 +36,16 @@ export class LoginComponent implements OnInit{
       (data) => {
         if(data){
           this.flujoDatos.setValidacionLogin(this.credenciales.usuario);
-          if(data){
-            this.router.navigate(["/depositos"]);
-          } else {
-            Swal.fire({
-              title: 'Error de acceso',
-              text: 'No tiene acceso a Ventanilla',
-              icon: 'error',
-              confirmButtonText: 'Aceptar'
-            });
-          }
+          this.router.navigate(["/depositos"]);
+
           
         }else{
+          Swal.fire({
+            title: 'Error de acceso',
+            text: 'No tiene acceso a Ventanilla',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
           this.accesoValidacion = false;
         }
 
