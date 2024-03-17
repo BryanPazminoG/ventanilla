@@ -70,6 +70,8 @@ export class DepositosComponent {
 
   updateTotal(): void {
     this.totalDollars = this.dollars + this.ctvs / 100;
+    const x: string = this.totalDollars.toString();
+    localStorage.setItem("valorDebe",x);
   }
   
   updateNumeroIdentificacion() {
@@ -77,6 +79,7 @@ export class DepositosComponent {
   }
 
   buscarCuenta(): void {
+    localStorage.clear();
 
     this.cuentaService
       .buscarCuentaPorNumero(this.numeroCuenta)
@@ -84,6 +87,8 @@ export class DepositosComponent {
         this.cuentaEncontrada = data;
         
         this.idCliente = this.cuentaEncontrada!.codCliente;
+        localStorage.setItem("codCuenta", this.cuentaEncontrada!.codCuenta);
+        console.log("Numero cuenta metodo buscarcuenta", this.cuentaEncontrada!.codCuenta);
         this.buscarCliente(this.idCliente);
         this.buscarClientePorIdentificacion();
       },
@@ -140,7 +145,14 @@ export class DepositosComponent {
       nombreCuenta: infoTransaccion!.nombreCliente,
       valorDebe: infoTransaccion!.monto
     }
-    this.cuentaService.depositar(this.infoDeposito).subscribe(
+    const codcuenta = localStorage.getItem("codCuenta");
+    let depositoRegistro = {
+      "codCuenta": codcuenta,
+      "valorHaber": infoTransaccion!.monto,
+      "canal": "VEN",
+    };
+
+    this.cuentaService.depositar(depositoRegistro).subscribe(
       data => {
         console.log(data);
         this.depositoCreado = data

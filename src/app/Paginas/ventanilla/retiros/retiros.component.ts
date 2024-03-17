@@ -14,8 +14,8 @@ import { ValidacionRetComponent } from "../validacion-ret/validacion-ret.compone
 export class RetirosComponent {
   numeroCuenta: string = "";
   idCliente: any = "";
-  nombres: string ="";
-  apellidos: string="";
+  nombres: string = "";
+  apellidos: string = "";
   cuentaEncontrada: Cuenta | null = null;
   clienteEncontrado = { nombres: '', apellidos: '' };
   totalDollars: number = 0;
@@ -24,21 +24,21 @@ export class RetirosComponent {
   ctvs: number = 0;
   numeroIdentificacion: string = "";
   tipoIdentificacion: string = "";
-  infoRetirar: InfoRetirar= {
+  infoRetirar: InfoRetirar = {
     numeroCuenta: "",
     valorHaber: 0
   }
   depositoCreado: any = null;
   errorMonto: string = '';
   mensajeError: string = '';
-  
+
   constructor(
     private router: Router,
     private cuentaService: CuentaService,
     private clienteService: ClienteService,
     private sharedDataService: SharedDataService,
     private flujoDatosService: FlujoDatosService
-  ) {}
+  ) { }
 
   goToValidacion() {
     this.buscarCuenta();
@@ -47,25 +47,34 @@ export class RetirosComponent {
 
   updateTotal(): void {
     this.totalDollars = this.dollars + this.ctvs / 100;
+    const x: string = this.totalDollars.toString();
+    localStorage.setItem("valorHaber", x);
   }
-  
+
   buscarCuenta(): void {
+    localStorage.clear();
+
     this.cuentaService
       .buscarCuentaPorNumero(this.numeroCuenta)
       .subscribe((data) => {
         this.cuentaEncontrada = data;
+        
         this.idCliente = this.cuentaEncontrada!.codCliente;
-        this.buscarCliente();
-        this.retirar();
+        localStorage.setItem("codCuenta", this.cuentaEncontrada!.codCuenta.toString());
+        console.log("Numero cuenta metodo buscarcuenta", this.cuentaEncontrada!.codCuenta);
+        this.buscarCliente(this.idCliente);
+        this.buscarClientePorIdentificacion();
       },
       (error) => {
         console.error("Error al encontrar la cuenta", error)
+        
       }
       );
   }
 
-  buscarCliente(): void {
+  buscarCliente(idCliente: string): void {
     this.clienteService.buscarClientePorId(this.idCliente).subscribe((data) => {
+      console.log(idCliente);
       this.clienteEncontrado = data;
       this.flujoDatosService.setInfoTransaccion({
         fecha: new Date(),
@@ -73,20 +82,20 @@ export class RetirosComponent {
         nombreCliente: `${this.clienteEncontrado?.nombres} ${this.clienteEncontrado?.apellidos}`,
         numeroCuenta: this.numeroCuenta
       })
-      
+
       // console.log("GET", this.flujoDatosService.getInfoTransaccion())
     },
-    error => {
-      console.error("CLIENTE NO ENCONTRADO", error)
-    });
+      error => {
+        console.error("CLIENTE NO ENCONTRADO", error)
+      });
   }
 
   buscarClientePorIdentificacion(): void {
     this.clienteService.buscarClientePorIdentificacion(this.tipoIdentificacion, this.numeroIdentificacion).subscribe(
       (data) => {
-        if(!data){
+        if (!data) {
           alert('Cliente no encontrado. Verifica la información ingresada.');
-        }else{
+        } else {
           this.clienteDepositante = data;
           this.flujoDatosService.setUsuarioDepositante({
             identificacion: this.numeroIdentificacion,
@@ -116,13 +125,13 @@ export class RetirosComponent {
       error => {
         console.log("No se ha realizado el deposito", error)
       }
-    ) 
+    )
   }
 
   validacionRet() {
     this.guardarDatos();
     const esMontoValido = this.validarMonto();
-    if ( !esMontoValido) {
+    if (!esMontoValido) {
       return;
     }
     this.router.navigate(["/retiros-validacion"]);
@@ -131,7 +140,7 @@ export class RetirosComponent {
   validarCamposYContinuar() {
     if (this.numeroCuenta && (this.dollars !== null && this.dollars > 0) && (this.ctvs !== null && this.ctvs >= 0)) {
       this.validacionRet();
-    }else{
+    } else {
       this.mensajeError = 'Ingrese todos los datos';
     }
   }
@@ -141,7 +150,7 @@ export class RetirosComponent {
       this.errorMonto = 'Monto invalido (debe ser mayor a $0.00)';
       return false;
     }
-    this.errorMonto = ''; 
+    this.errorMonto = '';
     return true;
   }
 
@@ -174,7 +183,7 @@ export class RetirosComponent {
     };
     this.depositoCreado = null;
   }
-  
+
   guardarDatos() {
     this.sharedDataService.setDatosRetiro(this.numeroCuenta, this.clienteEncontrado, this.totalDollars);
   }

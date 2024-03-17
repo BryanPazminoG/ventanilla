@@ -11,24 +11,31 @@ export class CuentaService {
   //private retirarApi = "http://localhost:8080/api/v1/transacciones/retiros"
   //private buscarCuentaApi = "http://localhost:8080/api/v1/cuentas/numero"
 
- private depositarApi = "http://35.192.152.130:8089/api/v1/transacciones/depositos";
-  private retirarApi = "http://35.192.152.130:8089/api/v1/transacciones/retiros"
- private buscarCuentaApi = "http://35.192.152.130:8089/api/v1/cuentas/numero"
+  private depositarApi = "https://cuentas-atnhilz3dq-uc.a.run.app/api/v1/transacciones/depositos";
+  private retirarApi = "https://cuentas-atnhilz3dq-uc.a.run.app/api/v1/transacciones/retiros";
+ private buscarCuentaApi = "https://cuentas-atnhilz3dq-uc.a.run.app/api/v1/cuentas";
+
  private infoDepositoSource = new ReplaySubject<InfoDeposito>(1); 
   currentInfoDeposito = this.infoDepositoSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  depositar(infoDeposito: InfoDeposito): Observable<any> {
-    return this.http.post<any>(this.depositarApi, infoDeposito);
+  depositar(depositoRegistro: any): Observable<any> {
+    console.log("infodeposito metodo",depositoRegistro);
+  
+    return this.http.post<any>(this.depositarApi, depositoRegistro);
   }
 
-  retirar(infoRetirar: InfoRetirar): Observable<any> {
-    return this.http.put<any>(this.retirarApi, infoRetirar)
+
+
+  retirar(infoRetirar: any): Observable<any> {
+    console.log("info retiro metodo",infoRetirar);
+  
+    return this.http.post<any>(this.retirarApi, infoRetirar)
   }
 
   buscarCuentaPorNumero(numeroCuenta: string): Observable<any> {
-    let url = `${this.buscarCuentaApi}/${numeroCuenta}`;
+    let url = `${this.buscarCuentaApi}/?numeroCuenta=${numeroCuenta}`;
     return this.http.get<any>(url);
   }
 

@@ -44,31 +44,39 @@ export class ValidacionRetComponent implements OnInit {
   }
 
   imprimirRet() {
-    this.infoRetirar= {
-      numeroCuenta: this.numeroCuenta, 
-      valorHaber: this.totalDollars!
+    const codcuenta = localStorage.getItem("codCuenta");
+    const valorHaber =localStorage.getItem("valorHaber");
+    if (codcuenta !== null && valorHaber!== null) {
+      const codCuenta = parseInt(codcuenta);
+      const valorH = parseInt(valorHaber);
+      let retiroRegistro = {
+        "codCuenta": codCuenta,
+        "valorHaber": valorH,
+        "canal": "VEN",
+      };
 
-    }
-    this.cuentaService.retirar(this.infoRetirar).subscribe(
-      data => {
+      this.cuentaService.retirar(retiroRegistro).subscribe(
+        data => {
+          Swal.fire({
+            title: 'Retiro',
+            text: ' Realizado correctamente',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+          });
+      this.router.navigate(['/retiros-comprobante']);
+      },
+      error => {
+        console.log("No se ha realizado el retiro", error)
         Swal.fire({
           title: 'Retiro',
-          text: ' Realizado correctamente',
-          icon: 'success',
+          text: ' No se pudo realizar el retiro',
+          icon: 'error',
           confirmButtonText: 'Aceptar'
         });
-    this.router.navigate(['/retiros-comprobante']);
-    },
-    error => {
-      console.log("No se ha realizado el retiro", error)
-      Swal.fire({
-        title: 'Retiro',
-        text: ' No se pudo realizar el retiro',
-        icon: 'error',
-        confirmButtonText: 'Aceptar'
-      });
+      }
+    )
     }
-  )
+
   }
 
 

@@ -63,32 +63,42 @@ export class ValidacionDepComponent implements OnInit, AfterViewInit {
   }
 
   depositar() {
-    this.infoDeposito = {
-      fechaCreacion: this.infoTransaccion!.fecha,
-      numeroCuenta: this.infoTransaccion!.numeroCuenta,
-      nombreCuenta: this.infoTransaccion!.nombreCliente,
-      valorDebe: this.infoTransaccion!.monto
+    const codcuenta = localStorage.getItem("codCuenta");
+    const valorDebe =localStorage.getItem("valorDebe");
+
+    if (codcuenta !== null && valorDebe!== null) {
+      const codCuenta = parseInt(codcuenta);
+      const valorD = parseInt(valorDebe);
+      let depositoRegistro = {
+        "codCuenta": codCuenta,
+        "valorDebe": valorD,
+        "canal": "VEN",
+      };
+      console.log("Los datos a depositar son:",depositoRegistro);
+      this.cuentaService.depositar(depositoRegistro).subscribe(
+        data => {
+          Swal.fire({
+            title: 'Deposito',
+            text: ' Realizado correctamente',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+          });
+          this.router.navigate(['/depositos-comprobante']);
+        },
+        error => {
+          console.log("No se ha realizado el deposito", error)
+          Swal.fire({
+            title: 'Deposito',
+            text: ' No se pudo realizar el deposito',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
+        }
+      )
+    } else {
+      // Maneja el caso en el que no se encuentre "codCuenta" en el almacenamiento local
     }
-    this.cuentaService.depositar(this.infoDeposito).subscribe(
-      data => {
-        Swal.fire({
-          title: 'Deposito',
-          text: ' Realizado correctamente',
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
-        });
-        this.router.navigate(['/depositos-comprobante']);
-      },
-      error => {
-        console.log("No se ha realizado el deposito", error)
-        Swal.fire({
-          title: 'Deposito',
-          text: ' No se pudo realizar el deposito',
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
-        });
-      }
-    )
+
   }
 
 
