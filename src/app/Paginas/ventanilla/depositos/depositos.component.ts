@@ -79,7 +79,6 @@ export class DepositosComponent {
   }
 
   buscarCuenta(): void {
-    localStorage.clear();
 
     this.cuentaService
       .buscarCuentaPorNumero(this.numeroCuenta)

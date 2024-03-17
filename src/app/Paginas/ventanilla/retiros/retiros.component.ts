@@ -52,7 +52,6 @@ export class RetirosComponent {
   }
 
   buscarCuenta(): void {
-    localStorage.clear();
 
     this.cuentaService
       .buscarCuentaPorNumero(this.numeroCuenta)

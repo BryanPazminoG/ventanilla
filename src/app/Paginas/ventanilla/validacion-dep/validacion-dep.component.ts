@@ -65,6 +65,7 @@ export class ValidacionDepComponent implements OnInit, AfterViewInit {
   depositar() {
     const codcuenta = localStorage.getItem("codCuenta");
     const valorDebe =localStorage.getItem("valorDebe");
+    console.log("SE VA A REALIZAR EL DEPÓSITO: ",codcuenta," y :",valorDebe);
 
     if (codcuenta !== null && valorDebe!== null) {
       const codCuenta = parseInt(codcuenta);
