@@ -8,15 +8,15 @@ import { FlujoDatosService } from './flujo-datos.service';
 })
 export class SegUsuarioService {
 
-  private loginUsuarioApi: string = "http://localhost:8096/api/v1/accesos/login";
+  private loginUsuarioApi: string = "https://segbanquito-atnhilz3dq-uc.a.run.app/api/v1/accesos/login";
 
   private buscarRoles: string = "http://34.16.181.123:8082/rol/buscar-todos/";
   private personal: string = "http://34.16.181.123:8082/personal-bancario/create";
   private accesoP: string = "http://34.16.181.123:8082/accesoPbRol/createAcceso";
   ///////////////////////////////////////////////////////////////////////////////
-  private accesoUsuario: string = "http://localhost:8096/api/v1/accesos/login";
-
-  constructor(private http: HttpClient, private flujoDatosService: FlujoDatosService) { }
+ // private accesoUsuario: string = "http://localhost:8080/api/v1/accesos/login";
+  private accesoUsuario: string ="https://segbanquito-atnhilz3dq-uc.a.run.app/api/v1/accesos/login";
+      constructor(private http: HttpClient, private flujoDatosService: FlujoDatosService) { }
 
   loguearUsuarioAPI(usuario: string, clave: string): Observable<any> {
     let params = new HttpParams().set('usuario', usuario).set('clave', clave);
